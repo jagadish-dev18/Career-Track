@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f4ee">
+  <meta name="description" content="A modern workspace for researching companies, tracking applications, and managing career follow-ups.">
+  <title>CareerTrack — Career Workspace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Small, local icon set. No external icon library is required. -->
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></symbol>
+    <symbol id="icon-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1M10 21v-3h4v3"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v4h14v-4"/></symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.3 1.7c-1.1 1-1.9 1.3-1.9 2.8M12 17h.01"/></symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m4 16.5-.8 4.3 4.3-.8L19 8.5 15.5 5 4 16.5Z"/><path d="m13.8 6.7 3.5 3.5M4 21h16"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></symbol>
+    <symbol id="icon-external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-9 9"/><path d="M18 13v6H5V6h6"/></symbol>
+    <symbol id="icon-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="CareerTrack overview" data-go-view="overview">
+        <span class="brand-mark"><svg class="icon"><use href="#icon-spark"/></svg></span>
+        <span class="brand-word">career<span>track</span><small>YOUR CAREER WORKSPACE</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link is-active" data-view="overview"><svg class="icon"><use href="#icon-grid"/></svg>Overview</button>
+        <button class="nav-link" data-view="applications"><svg class="icon"><use href="#icon-list"/></svg>Applications <span class="nav-count" id="navApplicationCount">0</span></button>
+        <button class="nav-link" data-view="companies"><svg class="icon"><use href="#icon-building"/></svg>Companies</button>
+      </nav>
+      <div class="topbar-tools">
+        <span class="save-status" id="saveStatus"><span class="save-dot"></span><span id="saveStatusText">Saved locally</span></span>
+        <button class="icon-button" id="helpButton" aria-label="Help and guide" title="Help"><svg class="icon"><use href="#icon-help"/></svg></button>
+        <button class="button button-primary button-top" id="addOpportunityTop"><svg class="icon"><use href="#icon-plus"/></svg><span>Add opportunity</span></button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="view is-active" id="overviewView" aria-labelledby="overviewTitle">
+        <div class="hero-row">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-mark">✳</span> THE JOB SEARCH, WITH INTENTION</p>
+            <h1 id="overviewTitle">Make your next move <em>count.</em></h1>
+            <p class="hero-description">A thoughtful space to find your next role, remember the details, and turn small follow-ups into meaningful progress.</p>
+          </div>
+          <div class="hero-note" aria-label="Workspace reminder">
+            <span class="note-stamp"><svg class="icon"><use href="#icon-spark"/></svg></span>
+            <div><strong>Good moves start with good notes.</strong><p>Keep every company, conversation, and next step in one calm place.</p></div>
+          </div>
+        </div>
+
+        <div class="demo-notice" id="demoNotice">
+          <span class="demo-symbol">i</span>
+          <p><strong>Sample workspace</strong><span>Example companies and statuses demonstrate the app. Replace them with your own records.</span></p>
+          <button class="text-button" id="restoreDemo">Restore examples</button>
+          <button class="notice-close" id="dismissDemo" aria-label="Dismiss sample data notice"><svg class="icon"><use href="#icon-close"/></svg></button>
+        </div>
+
+        <div class="stats-grid" aria-label="Application summary">
+          <article class="stat-card stat-total"><div class="stat-top"><span class="stat-label">OPPORTUNITIES</span><span class="stat-symbol"><svg class="icon"><use href="#icon-building"/></svg></span></div><div class="stat-number" id="totalStat">0</div><div class="stat-foot"><span class="mini-mark mark-plum">↗</span><span>In your workspace</span></div></article>
+          <article class="stat-card stat-applied"><div class="stat-top"><span class="stat-label">APPLICATIONS SENT</span><span class="stat-symbol"><svg class="icon"><use href="#icon-arrow"/></svg></span></div><div class="stat-number" id="appliedStat">0</div><div class="stat-foot"><span class="mini-mark mark-orange">●</span><span>Ready for follow-up</span></div></article>
+          <article class="stat-card stat-interview"><div class="stat-top"><span class="stat-label">INTERVIEWS</span><span class="stat-symbol"><svg class="icon"><use href="#icon-calendar"/></svg></span></div><div class="stat-number" id="interviewStat">0</div><div class="stat-foot"><span class="mini-mark mark-blue">✦</span><span>Keep preparing</span></div></article>
+          <article class="stat-card stat-offer"><div class="stat-top"><span class="stat-label">OFFERS</span><span class="stat-symbol"><svg class="icon"><use href="#icon-check"/></svg></span></div><div class="stat-number" id="offersStat">0</div><div class="stat-foot"><span class="mini-mark mark-green">↗</span><span>A milestone worth celebrating</span></div></article>
+        </div>
+
+        <div class="analytics-grid">
+          <section class="surface pipeline-surface">
+            <div class="section-heading"><div><p class="section-kicker">THE MOMENTUM</p><h2>Opportunity pipeline</h2><p>See where every conversation currently stands.</p></div><button class="link-button" id="openApplications">Explore applications <svg class="icon"><use href="#icon-arrow"/></svg></button></div>
+            <div class="pipeline-visual" id="pipelineChart" aria-label="Opportunity counts by status"></div>
+            <div class="surface-foot"><span><i class="legend-mark"></i>Tracked opportunities</span><strong id="pipelineSummary">0 tracked</strong></div>
+          </section>
+          <section class="surface activity-surface">
+            <div class="section-heading"><div><p class="section-kicker">SHOWING UP COUNTS</p><h2>Your recent activity</h2><p>Applications added over the last six months.</p></div><span class="chart-period">6 months</span></div>
+            <div class="activity-chart" id="activityChart" role="img" aria-label="Applications added each month"></div>
+            <div class="activity-foot"><span class="activity-key"><i></i>Applications added</span><strong id="activityTotal">0 total</strong></div>
+          </section>
+        </div>
+
+        <div class="lower-grid">
+          <section class="surface followup-surface">
+            <div class="section-heading section-heading-tight"><div><p class="section-kicker">NEXT ON YOUR LIST</p><h2>Follow-ups to remember</h2><p>Small actions that keep things moving.</p></div><svg class="heading-doodle" viewBox="0 0 52 52" aria-hidden="true"><path d="M9 37c5-18 13-25 27-25-2 14-9 22-27 25Z"/><path d="M9 37c8-8 14-13 24-19"/><path d="M34 8c2 5 5 8 10 10"/></svg></div>
+            <div class="followup-list" id="followupList"></div>
+            <div class="empty-inline hidden" id="followupEmpty"><span class="empty-icon"><svg class="icon"><use href="#icon-calendar"/></svg></span><div><strong>No follow-ups scheduled</strong><p>Add a follow-up date to an opportunity to see it here.</p></div></div>
+          </section>
+          <section class="surface status-surface">
+            <div class="section-heading section-heading-tight"><div><p class="section-kicker">THE MIX</p><h2>Where things stand</h2><p>Your current mix of application stages.</p></div></div>
+            <div class="status-overview"><div class="status-donut" id="statusDonut" role="img" aria-label="Application status distribution"><div class="donut-hole"><strong id="donutTotal">0</strong><span>tracked</span></div></div><div class="status-legend" id="statusLegend"></div></div>
+            <div class="small-tip"><span>✦</span><p><strong>A small tip</strong> Add a short note after each conversation so the details stay fresh.</p></div>
+          </section>
+        </div>
+
+        <section class="surface recent-surface">
+          <div class="section-heading recent-heading"><div><p class="section-kicker">LATEST ACTIVITY</p><h2>Recently updated</h2><p>Your latest opportunities, ready when you need them.</p></div><button class="button button-secondary" id="viewAllRecent">View all applications <svg class="icon"><use href="#icon-arrow"/></svg></button></div>
+          <div class="table-toolbar"><label class="search-field"><svg class="icon"><use href="#icon-search"/></svg><input type="search" id="overviewSearch" placeholder="Search company or role..." aria-label="Search recent opportunities"></label><label class="select-wrap"><span class="sr-only">Filter recent opportunities by status</span><select id="overviewStatusFilter"><option value="all">Every status</option><option>Interested</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label></div>
+          <div class="table-scroll"><table class="data-table"><thead><tr><th>COMPANY & ROLE</th><th>INDUSTRY</th><th>STATUS</th><th>NEXT FOLLOW-UP</th><th class="align-right">ACTIONS</th></tr></thead><tbody id="overviewRows"></tbody></table></div>
+          <div class="empty-state hidden" id="overviewEmpty"><span class="empty-state-icon"><svg class="icon"><use href="#icon-search"/></svg></span><strong>Nothing matched that search</strong><p>Try another word or choose a different status.</p></div>
+        </section>
+        <footer class="page-footer"><span>CareerTrack</span><span>Plan thoughtfully. Follow through.</span><button class="footer-link" id="exportCsvOverview">Export your list <svg class="icon"><use href="#icon-download"/></svg></button></footer>
+      </section>
+
+      <section class="view" id="applicationsView" aria-labelledby="applicationsTitle">
+        <div class="page-heading"><div><p class="eyebrow"><span class="eyebrow-mark">✳</span> YOUR OPPORTUNITIES</p><h1 id="applicationsTitle">Every possibility, <em>in one place.</em></h1><p class="hero-description">Update a status, capture a detail, and keep the next step moving.</p></div><button class="button button-primary" id="addOpportunityApplications"><svg class="icon"><use href="#icon-plus"/></svg>Add opportunity</button></div>
+        <section class="surface application-workspace">
+          <div class="workspace-toolbar"><div class="view-switch" role="group" aria-label="Choose applications layout"><button class="view-switch-button is-selected" data-layout="board"><svg class="icon"><use href="#icon-grid"/></svg> Pipeline</button><button class="view-switch-button" data-layout="list"><svg class="icon"><use href="#icon-list"/></svg> List</button></div><div class="workspace-filters"><label class="search-field"><svg class="icon"><use href="#icon-search"/></svg><input type="search" id="applicationsSearch" placeholder="Search companies, roles, notes..." aria-label="Search all applications"></label><label class="select-wrap"><span class="sr-only">Filter by status</span><select id="applicationsStatusFilter"><option value="all">All statuses</option><option>Interested</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label><label class="select-wrap"><span class="sr-only">Filter by industry</span><select id="applicationsIndustryFilter"><option value="all">All industries</option></select></label><button class="button button-secondary button-export" id="exportCsv"><svg class="icon"><use href="#icon-download"/></svg><span>Export CSV</span></button></div></div>
+          <div class="board-scroller" id="boardScroller"><div class="kanban-board" id="kanbanBoard"></div></div>
+          <div class="table-scroll list-layout hidden" id="listLayout"><table class="data-table"><thead><tr><th>COMPANY & ROLE</th><th>INDUSTRY / LOCATION</th><th>STATUS</th><th>APPLIED</th><th>FOLLOW-UP</th><th class="align-right">ACTIONS</th></tr></thead><tbody id="applicationsRows"></tbody></table></div>
+          <div class="empty-state hidden" id="applicationsEmpty"><span class="empty-state-icon"><svg class="icon"><use href="#icon-spark"/></svg></span><strong>Your workspace is ready for a new opportunity</strong><p>Add a role to start building your pipeline.</p><button class="button button-primary" id="addFromEmpty"><svg class="icon"><use href="#icon-plus"/></svg>Add opportunity</button></div>
+          <div class="workspace-foot"><span id="applicationCountLabel">0 opportunities</span><span>Changes stay in this browser.</span></div>
+        </section>
+        <footer class="page-footer"><span>CareerTrack</span><span>One thoughtful step at a time.</span><button class="footer-link" id="restoreDemoApplications">Restore sample data</button></footer>
+      </section>
+
+      <section class="view" id="companiesView" aria-labelledby="companiesTitle">
+        <div class="page-heading"><div><p class="eyebrow"><span class="eyebrow-mark">✳</span> COMPANY RESEARCH</p><h1 id="companiesTitle">Know the places <em>you’re aiming for.</em></h1><p class="hero-description">Collect the details that help you decide where to focus your time.</p></div><button class="button button-primary" id="addOpportunityCompanies"><svg class="icon"><use href="#icon-plus"/></svg>Add opportunity</button></div>
+        <div class="company-summary surface"><div class="company-summary-copy"><span class="summary-icon"><svg class="icon"><use href="#icon-building"/></svg></span><div><strong id="uniqueCompanyCount">0 companies</strong><p>Companies represented in your opportunity list.</p></div></div><span class="company-summary-note">Research with intention <span>✦</span></span></div>
+        <div class="company-tools"><label class="search-field company-search"><svg class="icon"><use href="#icon-search"/></svg><input type="search" id="companiesSearch" placeholder="Find a company or industry..." aria-label="Search company directory"></label><label class="select-wrap"><span class="sr-only">Filter company directory by industry</span><select id="companiesIndustryFilter"><option value="all">All industries</option></select></label></div>
+        <div class="company-grid" id="companyGrid"></div>
+        <div class="empty-state hidden" id="companiesEmpty"><span class="empty-state-icon"><svg class="icon"><use href="#icon-building"/></svg></span><strong>No companies found</strong><p>Try another search or add a new opportunity.</p></div>
+        <footer class="page-footer"><span>CareerTrack</span><span>Curiosity is a useful career skill.</span><button class="footer-link" id="exportCompanies">Export your list <svg class="icon"><use href="#icon-download"/></svg></button></footer>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="opportunityModal" aria-labelledby="modalTitle">
+    <form id="opportunityForm" class="modal-form">
+      <div class="modal-heading"><div><p class="section-kicker" id="modalEyebrow">ADD TO YOUR WORKSPACE</p><h2 id="modalTitle">Add an opportunity</h2><p>Capture the essentials. You can add more detail later.</p></div><button type="button" class="icon-button modal-close" id="closeModal" aria-label="Close form"><svg class="icon"><use href="#icon-close"/></svg></button></div>
+      <div class="form-grid">
+        <label class="form-field"><span>Company name <b>*</b></span><input id="companyInput" name="company" required maxlength="100" placeholder="e.g. Northstar Systems"></label>
+        <label class="form-field"><span>Job title / target role <b>*</b></span><input id="roleInput" name="role" required maxlength="100" placeholder="e.g. Junior Web Developer"></label>
+        <label class="form-field"><span>Industry</span><input id="industryInput" name="industry" list="industryChoices" maxlength="80" placeholder="e.g. Software Development"><datalist id="industryChoices"><option>Software Development</option><option>Cybersecurity</option><option>Automotive</option><option>Manufacturing</option><option>Research & Development</option><option>IT Services</option><option>Electronics</option><option>Other</option></datalist></label>
+        <label class="form-field"><span>Location</span><input id="locationInput" name="location" maxlength="80" placeholder="e.g. Hyderabad or Remote"></label>
+        <label class="form-field"><span>Current status</span><select id="statusInput" name="status"><option>Interested</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label>
+        <label class="form-field"><span>Company website</span><input id="websiteInput" name="website" type="url" placeholder="https://example.com"></label>
+        <label class="form-field"><span>Application date</span><input id="applicationDateInput" name="applicationDate" type="date"></label>
+        <label class="form-field"><span>Next follow-up</span><input id="followUpDateInput" name="followUpDate" type="date"></label>
+        <label class="form-field form-field-wide"><span>Research notes / next step</span><textarea id="notesInput" name="notes" rows="3" maxlength="1000" placeholder="What do you want to remember? Who should you follow up with?"></textarea></label>
+      </div>
+      <p class="form-help"><svg class="icon"><use href="#icon-check"/></svg> Your entries are saved locally in this browser.</p>
+      <div class="modal-actions"><button type="button" class="button button-secondary" id="cancelModal">Cancel</button><button type="submit" class="button button-primary" id="saveOpportunityButton">Save opportunity <svg class="icon"><use href="#icon-arrow"/></svg></button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal help-modal" id="helpModal" aria-labelledby="helpTitle">
+    <div class="modal-heading"><div><p class="section-kicker">QUICK GUIDE</p><h2 id="helpTitle">Your search, organized.</h2><p>CareerTrack works in your browser—no account is needed.</p></div><button class="icon-button modal-close" id="closeHelp" aria-label="Close help"><svg class="icon"><use href="#icon-close"/></svg></button></div>
+    <div class="help-items"><div><span>01</span><p><strong>Add an opportunity</strong><small>Record the company, role, current status, and any notes you want to keep.</small></p></div><div><span>02</span><p><strong>Update as things change</strong><small>Move applications between stages from the pipeline or list view.</small></p></div><div><span>03</span><p><strong>Keep your next step visible</strong><small>Set follow-up dates and review them in the overview.</small></p></div><div><span>04</span><p><strong>Keep your data in mind</strong><small>Records stay in this browser profile. Export a CSV backup when useful.</small></p></div></div>
+    <div class="modal-actions"><button class="button button-primary" id="gotItHelp">Got it</button></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-mark"><svg class="icon"><use href="#icon-check"/></svg></span><span id="toastMessage">Saved</span></div>
+  <script src="script.js"></script>
+</body>
+</html>
